@@ -1,0 +1,12 @@
+{
+    "name": "Helpigo",
+    "short_name": "Helpigo",
+    "description": "Hire a verified local helper for everyday tasks.",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#F5F7FA",
+    "theme_color": "#17325C",
+    "icons": [
+        { "src": "assets/images/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    ]
+}

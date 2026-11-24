@@ -1,0 +1,41 @@
+# Works on Apache (XAMPP) and LiteSpeed (Hostinger).
+Options -Indexes
+AddType application/manifest+json .webmanifest
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force HTTPS in production (uncomment after SSL is active on Hostinger)
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Never serve dotfiles (.env, .git ...)
+    RewriteRule (^|/)\. - [F]
+
+    # Real files (CSS, JS, images) are served directly; everything else goes to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    <FilesMatch "\.(css|js|woff2?|svg|png|jpe?g|webp|ico|webmanifest)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    # The service worker must always be checked for updates (comes after the rule above, so it wins).
+    <Files "sw.js">
+        Header set Cache-Control "no-cache"
+    </Files>
+</IfModule>
+
+# Block direct access to backup and config files that could end up here by mistake
+<FilesMatch "\.(sql|log|ini|env|bak|sh|md|lock|json)$">
+    Require all denied
+</FilesMatch>
+
+# The server path file is only for index.php, never for visitors
+<FilesMatch "^app-location(\.example)?\.php$">
+    Require all denied
+</FilesMatch>

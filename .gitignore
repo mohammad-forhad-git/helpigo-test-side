@@ -1,0 +1,45 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies (dev-only, installed with composer install)
+/vendor/
+
+# Runtime data - never commit
+/storage/logs/*
+/storage/private/*
+/storage/cache/*
+/storage/sessions/*
+!/storage/**/.gitkeep
+
+# User uploads (category images uploaded through admin live on the server)
+/public/uploads/*
+!/public/uploads/.htaccess
+!/public/uploads/.gitkeep
+
+# Database dumps (only schema.sql and seed.sql are tracked)
+*.sql
+!/database/schema.sql
+!/database/seed.sql
+!/database/migrations/*.sql
+*.sql.gz
+*.zip
+
+# Tooling
+.phpunit.cache/
+.phpunit.result.cache
+*.log
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Server-specific path file (see public/app-location.example.php)
+/public/app-location.php
+# Payment gateway keys (Nagad RSA keys etc.)
+/storage/private/keys/
